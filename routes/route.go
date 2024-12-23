@@ -35,10 +35,12 @@ func RouteApp(app *fiber.App) {
 	})
 
 	// Route Admin
-	admin := api.Group("/admin", middlewares.AuthMiddleware, middlewares.CheckRole(1)) // Hanya admin
+	// admin := api.Group("/admin", middlewares.AuthMiddleware, middlewares.CheckRole(1)) // Hanya admin
+	admin := api.Group("/admin", middlewares.AuthMiddleware)
 	admin.Post("/modul", controllers.CreateModul)
 	admin.Put("/modul/:id", controllers.UpdateModul)
 	admin.Delete("/modul/:id", controllers.DeleteModul)
+	admin.Post("/jenis_user/", controllers.AddJenisUser)
 	admin.Put("/jenis_user/:id_jenis_user", controllers.UpdateJenisUserModul)
 	admin.Delete("/jenis_user/:id_jenis_user", controllers.DeleteJenisUserModul)
 	admin.Put("/pindah_user/:user_id", controllers.PindahJenisUser)
